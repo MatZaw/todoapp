@@ -1,0 +1,20 @@
+<div class="main-div">
+  <mat-card>
+    <div class="task-div">
+      <p>{{task}}</p>
+    </div>
+    <div class="buttons-div">
+      <form [formGroup] = "formGroup" (ngSubmit)="modify()">
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your task</mat-label>
+          <input matInput placeholder="Task" formControlName="task">
+        </mat-form-field>
+        <button mat-raised-button color="blue" class="button">Modify</button>
+      </form>
+
+      <button mat-raised-button color="blue" class="button" (click)="delete()">Delete</button>
+    </div>
+  </mat-card>
+</div>
+
+

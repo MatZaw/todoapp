@@ -1,0 +1,18 @@
+<div class="main-div">
+  <mat-card>
+    <p>Username: {{user.username}}</p>
+    <form fxLayoutAlign="stretch" fxLayout="column" class="login-form" [formGroup] = "formGroup" (ngSubmit)="addTask()">
+      <mat-form-field appearance="fill">
+        <mat-label>Enter your task</mat-label>
+        <input matInput placeholder="Task" formControlName="task">
+      </mat-form-field>
+      <button mat-raised-button color="blue" class="button" type="submit">Add task</button>
+    </form>
+    <p>Tasks:</p>
+    <div *ngFor="let task of user.tasks; let i = index" class="tasks">
+      <admin-task [task]="task" [index]="i" [username]="user.username"></admin-task>
+    </div>
+  </mat-card>
+</div>
+
+
