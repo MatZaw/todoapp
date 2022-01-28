@@ -16,9 +16,17 @@ export class AuthServiceService {
     console.log(data)
     return this.http.post(`${this.baseUrl}/auth/login`, data , {observe: 'response'})
       .subscribe(response => {
-        console.log(response.status);
         if(response.status === 200){
           localStorage.setItem("token", JSON.parse(JSON.stringify(response.body)).token)
+          if(localStorage.getItem("token")){
+            this.getUser().subscribe(response => {
+              if(response.role === "USER"){
+                this.router.navigate(['/todo', response.username])
+              }else{
+                this.router.navigate(['/admin'])
+              }
+            })
+          }
         }else{
           alert("Wrong password or username")
         }
@@ -51,31 +59,13 @@ export class AuthServiceService {
     return this.http.get(`${this.baseUrl}/users`, {headers: headers})
   }
 
-  getTasks(username: any): Observable<any>{
+  getTasks(username: string): Observable<any>{
 
     const headers = new HttpHeaders({
       'Content-Type':'application/json',
       'Authorization':`Bearer ${localStorage.getItem("token")}`
     });
 
-    return this.http.get(`${this.baseUrl}/tests/${username}`,{ headers: headers});
-
-
-
-
-
-    // return fetch(`${this.baseUrl}/tasks/${username}`, {
-    //   method: "GET",
-    //   headers: {
-    //     'Authorization': `Bearer ${localStorage.getItem("token")}`
-    //   }
-    // })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       return response.json()
-    //     } else {
-    //       throw new Error('AdminService | enableTap | Error')
-    //     }
-    //   })
+    return this.http.get(`${this.baseUrl}/tasks/${username}`,{ headers: headers});
   }
 }

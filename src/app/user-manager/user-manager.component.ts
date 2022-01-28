@@ -27,5 +27,6 @@ export class UserManagerComponent implements OnInit {
     this.adminService.addTask(this.user.username, this.formGroup.get("task")?.value).subscribe(response => {
       console.log(response)
     });
+    window.location.reload()
   }
 }

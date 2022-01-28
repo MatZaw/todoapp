@@ -34,11 +34,13 @@ export class AdminTaskComponent implements OnInit {
     this.adminService.deleteTask(this.username,this.index).subscribe(response => {
       console.log(response)
     })
+    window.location.reload()
   }
   modify(){
     this.adminService.modifyTask(this.username, this.formGroup.get("task")?.value, this.index).subscribe( response => {
       console.log(response)
     })
+    window.location.reload()
   }
 
 }
